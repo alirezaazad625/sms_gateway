@@ -3,8 +3,12 @@ install:
 	docker-compose run -u root --rm composer dump-autoload
 
 create-env:
+ifeq (,$(wildcard ./source/.env))
 	cp source/.env.example source/.env
+endif
+ifeq (,$(wildcard /.env))
 	cp .env.example .env
+endif
 
 run:
 	docker-compose up -d
