@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->char('phone', 11);
             $table->text('message');
             $table->timestamp('created_at');
+            $table->timestamp('updated_at');
         });
     }
 

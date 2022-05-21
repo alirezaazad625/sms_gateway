@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Message\Infra;
+namespace App\Message\Infra;
 
 
 use App\Message\Application\Ports\MessageRepository;

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Psr\Log\LogLevel;
 use Throwable;
@@ -44,8 +45,12 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'message' => 'conflict : duplicate entry'
+                ], 409);
+            }
         });
     }
 }

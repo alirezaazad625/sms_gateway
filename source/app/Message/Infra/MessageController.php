@@ -2,13 +2,19 @@
 
 namespace App\Message\Infra;
 
-use App\Message\Domain\Message;
+use App\Message\Application\MessagesApplication;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use App\Message\Domain\Commands\CreateMessageCommand;
 
 class MessageController extends BaseController
 {
-//    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    private MessagesApplication $messageApplication;
+
+    public function __construct(MessagesApplication $messageApplication)
+    {
+        $this->messageApplication = $messageApplication;
+    }
 
     function list(): array
     {
@@ -22,11 +28,12 @@ class MessageController extends BaseController
             "phone" => "required|regex:/09[0-9]{9}/",
             "message" => "required|string"
         ]);
-        $message = new Message(
-            $request->input("id"),
-            $request->input("phone"),
-            $request->input("message")
+        $this->messageApplication->create(
+            new CreateMessageCommand(
+                $request->input("id"),
+                $request->input("phone"),
+                $request->input("message")
+            )
         );
-        Message::saveOrThrow($message);
     }
 }

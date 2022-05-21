@@ -2,17 +2,17 @@
 
 namespace App\Message\Domain;
 
+use App\Message\Domain\Commands\CreateMessageCommand;
 use Illuminate\Database\Eloquent\Model;
-use Throwable;
 
 class Message extends Model
 {
-    public function __construct(string $uuid, string $phone, string $message)
+    public function __construct(CreateMessageCommand $command)
     {
         $attributes = [
-            'phone' => $phone,
-            'message' => $message,
-            'id' => $uuid,
+            'phone' => $command->getPhone(),
+            'message' => $command->getMessage(),
+            'id' => $command->getId(),
             'created_at' => time()
         ];
         parent::__construct($attributes);
@@ -24,12 +24,4 @@ class Message extends Model
         'id',
         'created_at'
     ];
-
-    /**
-     * @throws Throwable
-     */
-    static function saveOrThrow(Message $message) : void
-    {
-        $message->saveOrFail();
-    }
 }
