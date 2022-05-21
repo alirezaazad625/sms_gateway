@@ -24,13 +24,13 @@ class MessageController extends BaseController
     function create(Request $request): void
     {
         $request->validate([
-            "id" => "required|uuid",
+            "uuid" => "required|uuid",
             "phone" => "required|regex:/09[0-9]{9}/",
             "message" => "required|string"
         ]);
         $this->messageApplication->create(
             new CreateMessageCommand(
-                $request->input("id"),
+                $request->input("uuid"),
                 $request->input("phone"),
                 $request->input("message")
             )

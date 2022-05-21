@@ -18,7 +18,7 @@ class Message extends Model
         $message = new Message();
         $message->phone = $command->getPhone();
         $message->message = $command->getMessage();
-        $message->id = $command->getId();
+        $message->uuid = $command->getUuid();
         $message->created_at = time();
         return $message;
     }

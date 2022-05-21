@@ -8,7 +8,6 @@ use App\Jobs\MessagingWorker;
 use App\Message\Application\Ports\MessageRepository;
 use App\Message\Application\Ports\Pageable;
 use App\Message\Domain\Message;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class EloquentMessageRepository implements MessageRepository
@@ -21,7 +20,7 @@ class EloquentMessageRepository implements MessageRepository
     function save(Message $message): void
     {
         $message->save();
-        MessagingWorker::dispatch($message)->delay(now()->addSecond());
+        MessagingWorker::dispatch($message);
     }
 
     /**

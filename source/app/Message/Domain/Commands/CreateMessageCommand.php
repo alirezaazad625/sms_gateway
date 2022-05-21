@@ -6,20 +6,20 @@ namespace App\Message\Domain\Commands;
 
 class CreateMessageCommand
 {
-    private string $id;
+    private string $uuid;
     private string $phone;
     private string $message;
 
-    public function __construct(string $id, string $phone, string $message)
+    public function __construct(string $uuid, string $phone, string $message)
     {
-        $this->id = $id;
+        $this->uuid = $uuid;
         $this->phone = $phone;
         $this->message = $message;
     }
 
-    public function getId(): string
+    public function getUuid(): string
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     public function getPhone(): string

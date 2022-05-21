@@ -13,7 +13,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->char("id", 36)->primary();
+            $table->id();
+            $table->char("uuid", 36)->unique();
             $table->char('phone', 11);
             $table->text('message');
             $table->timestamp('created_at');
