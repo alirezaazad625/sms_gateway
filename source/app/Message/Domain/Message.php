@@ -7,15 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    public function __construct(CreateMessageCommand $command)
+
+    public function __construct()
     {
-        $attributes = [
-            'phone' => $command->getPhone(),
-            'message' => $command->getMessage(),
-            'id' => $command->getId(),
-            'created_at' => time()
-        ];
-        parent::__construct($attributes);
+        parent::__construct();
+    }
+
+    public static function new(CreateMessageCommand $command): Message
+    {
+        $message = new Message();
+        $message->phone = $command->getPhone();
+        $message->message = $command->getMessage();
+        $message->id = $command->getId();
+        $message->created_at = time();
+        return $message;
     }
 
     protected array $fillable = [

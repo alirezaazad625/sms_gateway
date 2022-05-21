@@ -19,7 +19,7 @@ class MessagesApplication
 
     public function create(CreateMessageCommand $command)
     {
-        $message = new Message($command);
+        $message = Message::new($command);
         $this->messageRepository->save($message);
     }
 

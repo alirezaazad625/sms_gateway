@@ -10,8 +10,7 @@ interface MessageRepository
     function save(Message $message);
 
     /**
-     * @param Pageable|null $pageable
      * @return Message[]
      */
-    function find(Pageable $pageable = null) : array;
+    function find(int $page , int $pageSize) : array;
 }
