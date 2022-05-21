@@ -16,9 +16,15 @@ class MessageController extends BaseController
         $this->messageApplication = $messageApplication;
     }
 
-    function list(): array
+    function list(Request $request): array
     {
-        return ["akbar" => "asghar"];
+        $request->validate([
+            "page" => "int",
+            "pageSize" => "int"
+        ]);
+        $page = $request->input('page') == "" ? 0 : intval($request->input('page'));
+        $pageSize = $request->input('pageSize') == "" ? 15 : intval($request->input('pageSize'));
+        return $this->messageApplication->list($page, $pageSize);
     }
 
     function create(Request $request): void

@@ -28,6 +28,6 @@ class EloquentMessageRepository implements MessageRepository
      */
     function find(int $page, int $pageSize): array
     {
-        return Message::all()->forPage($page, $pageSize)->all();
+        return Message::query()->forPage($page, $pageSize)->get()->all();
     }
 }

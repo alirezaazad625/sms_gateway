@@ -23,5 +23,15 @@ class MessagesApplication
         $this->messageRepository->save($message);
     }
 
+    /**
+     * @param int $page
+     * @param int $pageNumber
+     * @return Message[]
+     */
+    public function list(int $page, int $pageNumber) : array
+    {
+        return $this->messageRepository->find($page, $pageNumber);
+    }
+
 
 }
